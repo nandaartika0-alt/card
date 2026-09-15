@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BDAY CARD!</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Quicksand:wght@400;500;600;700&family=Pacifico&display=swap"
+        rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+
+<body>
+
+    <div id="petals-container"></div>
+
+
+    <div class="nav-bar">
+        <div class="nav-dot active" onclick="nextSection('sec-opening')" title="Opening"></div>
+        <div class="nav-dot" onclick="nextSection('sec-bouquet')" title="Bouquet coquette"></div>
+        <div class="nav-dot" onclick="nextSection('sec-envelope')" title="Surat teko aku"></div>
+        <div class="nav-dot" onclick="nextSection('sec-cake')" title="Tiup Lilin"></div>
+        <div class="nav-dot" onclick="nextSection('sec-gallery')" title="Photo dump"></div>
+        <div class="nav-dot" onclick="nextSection('sec-closing')" title="Closing"></div>
+    </div>
+
+
+    <div class="music-player">
+        <div class="w-9 h-9 rounded-full bg-pink-100 flex items-center justify-center text-pink-500 disc-icon"
+            id="music-disc">
+            <i class="fa-solid fa-compact-disc text-lg"></i>
+        </div>
+        <div class="flex flex-col text-xs max-w-[120px] sm:max-w-[160px]">
+            <span id="track-title" class="font-bold truncate text-pink-700">Every Summertime</span>
+            <span id="track-artist" class="text-pink-400 text-[10px] truncate">NIKI ✨</span>
+        </div>
+        <div class="flex items-center gap-1">
+            <button onclick="prevTrack()" title="Lagu Sebelumya"
+                class="text-pink-400 hover:text-pink-600 transition p-1 text-xs">
+                <i class="fa-solid fa-backward-step"></i>
+            </button>
+            <button onclick="togglePlay()" id="play-btn" title="Play/Pause"
+                class="w-7 h-7 rounded-full bg-pink-500 text-white flex items-center justify-center hover:bg-pink-600 transition text-xs shadow">
+                <i class="fa-solid fa-play" id="play-icon"></i>
+            </button>
+            <button onclick="nextTrack()" title="Lagu Selanjutnya"
+                class="text-pink-400 hover:text-pink-600 transition p-1 text-xs">
+                <i class="fa-solid fa-forward-step"></i>
+            </button>
+        </div>
+        <audio id="bg-audio" loop></audio>
+    </div>
+
+
+    <div id="sec-opening" class="section active text-center">
+        <div class="max-w-md mx-auto px-4">
+            <span
+                class="inline-block px-4 py-1.5 bg-pink-100 text-pink-600 rounded-full text-xs font-semibold mb-4 border border-pink-200">
+                ✨ Special Day for u! ✨
+            </span>
+            <h1 class="font-title text-6xl md:text-7xl text-pink-600 mb-4 animate-bounce">
+                Haloo fineshit e intrance! 🌸
+            </h1>
+            <p class="text-base md:text-lg text-pink-800 mb-8 leading-relaxed font-medium">
+                Onok sesuatu sg epik gwe awm mbet teko akuh developer handal (handal ngepromt)...
+            </p>
+            <button onclick="startSurprise('sec-bouquet')" class="btn-pink text-base">
+                <span>Bukaen mbet 🌷</span>
+                <i class="fa-solid fa-heart"></i>
+            </button>
+            <p class="text-xs text-pink-400 mt-4">Tip: Kamu juga bisa pakai tombol panah keyboard ⌨️</p>
+        </div>
+    </div>
+
+    <div id="sec-bouquet" class="section text-center">
+        <div class="max-w-lg mx-auto px-4">
+            <span class="px-3 py-1 bg-pink-100 text-pink-600 rounded-full text-xs font-semibold">Step 1 of 4 💐</span>
+            <h2 class="font-title text-4xl md:text-5xl text-pink-600 mt-2 mb-2">Rangkaien kembangmu mbet!</h2>
+            <p class="text-xs md:text-sm text-pink-700 mb-6 font-medium">
+                Pilih bunga-bunga cantik favoritmu untuk dijadikan buket spesial di dalam surat nanti (yo mbasio ga ketok)✨
+            </p>
+
+            <!-- Flower Selection Options -->
+            <div class="grid grid-cols-3 sm:grid-cols-5 gap-3 mb-6">
+                <div class="flower-card selected" onclick="toggleFlower('rose', this)" id="card-rose">
+                    <div class="text-2xl mb-1">🌹</div>
+                    <div class="text-xs font-bold text-pink-700">Pink Rose</div>
+                </div>
+                <div class="flower-card selected" onclick="toggleFlower('tulip-pink', this)" id="card-tulip-pink">
+                    <div class="text-2xl mb-1">🌷</div>
+                    <div class="text-xs font-bold text-pink-700">Tulip Pink</div>
+                </div>
+                <div class="flower-card selected" onclick="toggleFlower('lily', this)" id="card-lily">
+                    <div class="text-2xl mb-1">🌺</div>
+                    <div class="text-xs font-bold text-pink-700">White Lily</div>
+                </div>
+                <div class="flower-card selected" onclick="toggleFlower('tulip-yellow', this)" id="card-tulip-yellow">
+                    <div class="text-2xl mb-1">🌼</div>
+                    <div class="text-xs font-bold text-pink-700">Tulip Kuning</div>
+                </div>
+                <div class="flower-card selected" onclick="toggleFlower('lavender', this)" id="card-lavender">
+                    <div class="text-2xl mb-1">🪻</div>
+                    <div class="text-xs font-bold text-pink-700">Lavender</div>
+                </div>
+            </div>
+
+            <div class="bg-white/80 backdrop-blur p-4 rounded-2xl border border-pink-200 mb-6 shadow-sm">
+                <p class="text-xs text-pink-500 font-semibold mb-2">kembang sing mok pilih :</p>
+                <div id="bouquet-preview-list" class="flex justify-center gap-3 text-2xl min-h-[36px] items-center">
+                    🌹 🌷 🌺 🌼 🪻
+                </div>
+            </div>
+
+            <button onclick="finishBouquet()" class="btn-pink">
+                <span>Bungkus Buket & Buka Surat 💌</span>
+                <i class="fa-solid fa-arrow-right"></i>
+            </button>
+        </div>
+    </div>
+
+
+    <div id="sec-envelope" class="section">
+        <div class="envelope-container">
+            <div class="text-center max-w-lg mb-4 px-4">
+                <h2 class="font-title text-4xl md:text-5xl text-pink-600 mb-1">hzz pesan teko aku iki, ojo ngguyu...</h2>
+                <p class="text-xs text-pink-500 font-semibold">(Klik stiker love merah di bawah untuk membuka amplopnya!
+                    ✨)</p>
+            </div>
+
+            <div class="envelope-wrapper" id="envelopeWrapper" onclick="openEnvelope()">
+                <div class="envelope-back"></div>
+                <div class="letter-content">
+                    <div class="bouquet-container" id="bouquetContainerSVG">
+                     
+                    </div>
+
+                    <div class="letter-text-box px-2">
+                        <h3 class="font-bold text-pink-600 text-lg md:text-xl mb-1">Selamat Ulang Tahun ke 18 mbettt! 🎉✨</h3>
+                        <p class="text-xs md:text-sm text-pink-900 leading-relaxed font-medium">
+                            hmm tambah tuwek rwekk, semoga ndek usia ke 18 mu iki, harimu selalu minggu, lolos ptn (ga sombong ga pamer),
+                            semoga ga jompo. terus stay humble yo kak, aku ga gitu pinter soale pokok ojo isin nduwe konco ky aku! 🌸💖
+                        </p>
+                    </div>
+                </div>
+                <div class="envelope-pocket"></div>
+                <div class="envelope-flap"></div>
+                <div class="heart-seal"></div>
+            </div>
+
+            <button id="btn-to-cake" onclick="nextSection('sec-cake')"
+                class="btn-pink mt-36 opacity-0 transition-all duration-700 pointer-events-none">
+                <span>Aku ga nduwe duwit ddi kue virtual ae! 🎂</span>
+                <i class="fa-solid fa-arrow-right"></i>
+            </button>
+        </div>
+    </div>
+
+
+    <div id="sec-cake" class="section text-center">
+        <h2 class="font-title text-4xl md:text-5xl text-pink-600 mb-1">Make a Wish! 🌟</h2>
+        <p class="text-xs md:text-sm text-pink-800 mb-2 max-w-md px-4 font-medium">
+            YA ALLAH BISMILLAH UNERRR, sebulen mbet!!
+        </p>
+
+        <div class="cake-container mx-auto" onclick="celebrateWish()">
+            <div class="plate"></div>
+            <div class="cake">
+                <div class="layer layer-bottom"></div>
+                <div class="layer layer-middle"></div>
+                <div class="layer layer-top"></div>
+                <div class="icing"></div>
+                <div class="drip drip1"></div>
+                <div class="drip drip2"></div>
+                <div class="drip drip3"></div>
+                <div class="candle">
+                    <div class="flame" id="candle-flame"></div>
+                </div>
+            </div>
+        </div>
+
+        <div id="mic-status"
+            class="bg-white/80 backdrop-blur px-4 py-1.5 rounded-full text-xs font-semibold text-pink-700 border border-pink-200 shadow-sm my-3 inline-flex items-center gap-2">
+            <i class="fa-solid fa-microphone text-pink-500 animate-pulse"></i>
+            <span id="mic-text">Mempersiapkan sensor tiupan mic...</span>
+        </div>
+
+        <div class="flex flex-col items-center gap-2 mt-1">
+            <p class="text-xs text-pink-400">Atau jika mic tidak merespon / tidak diizinkan:</p>
+            <button onclick="celebrateWish()"
+                class="bg-white text-pink-600 border-2 border-pink-300 hover:bg-pink-50 px-5 py-2 rounded-full font-bold text-xs transition-all shadow-sm flex items-center gap-2">
+                <i class="fa-solid fa-wind text-pink-400"></i>
+                <span>Males ta?, Klik iki ae💨</span>
+            </button>
+        </div>
+    </div>
+
+    <div id="sec-gallery" class="section">
+        <h2 class="font-title text-4xl md:text-5xl text-pink-600 mb-1 text-center">photo dump 📸</h2>
+        <p class="text-xs md:text-sm text-pink-400 mb-4 text-center">Momen-momen mbeldos...</p>
+
+        <div class="gallery-grid">
+            <div class="polaroid">
+                <img src="assets/images/koceng.jpeg"
+                    alt="Memory 1" onerror="this.src='https://placehold.co/400x400/ffccd5/590d22?text=Foto+Cantik+1'">
+                <p>hmm talah ayune 😊</p>
+            </div>
+            <div class="polaroid">
+                <img src="assets/images/keluarga.jpeg"
+                    alt="Memory 2" onerror="this.src='https://placehold.co/400x400/ffccd5/590d22?text=Foto+Cantik+2'">
+                <p>harta yang paling berharga adalah keluarga... 💖</p>
+            </div>
+            <div class="polaroid">
+                <img src="assets/images/lavender.jpeg"
+                    alt="Memory 3" onerror="this.src='https://placehold.co/400x400/ffccd5/590d22?text=Foto+Cantik+3'">
+                <p>Tetap rabi biarpun pasanganmu gay ! ✨</p>
+            </div>
+        </div>
+
+        <div
+            class="max-w-xl mx-auto text-center bg-white/90 backdrop-blur p-6 rounded-3xl shadow-xl border-2 border-pink-200 my-6 px-6">
+            <div class="text-pink-400 text-2xl mb-2"><i class="fa-solid fa-quote-left"></i></div>
+            <h3 class="font-title text-3xl text-pink-600 mb-3">Pesan Spesial teko aku</h3>
+            <p class="text-xs md:text-sm text-pink-900 leading-relaxed mb-4 font-medium">
+                "Thanks yo ws gelem koncoan kro aku. Sorry lek isin isini, terus kakean skinship (cium cium tanpa alasan)
+                yo ngene iki lah aku. Aku loh sek kudu ngguyu first time kne ketemu. pokoke semoga uner, ws jurusane miliho dwe"
+            </p>
+            <p class="font-handwriting text-lg text-pink-500">
+                Happy Level Up Day! Stay awesome & shine bright! ✨
+            </p>
+        </div>
+
+        <button onclick="nextSection('sec-closing')" class="btn-pink mb-6">
+            <span>Sentuhan Penutup 🌸</span>
+            <i class="fa-solid fa-sparkles"></i>
+        </button>
+    </div>
+
+    <!-- SECTION 6: ELEGANT & WARM CLOSING (HUG REMOVED) -->
+    <div id="sec-closing" class="section text-center">
+        <div
+            class="max-w-md bg-white/90 backdrop-blur-md p-8 rounded-3xl border border-pink-200 shadow-xl relative mx-4">
+            <div
+                class="w-16 h-16 bg-pink-100 rounded-full flex items-center justify-center text-pink-500 mx-auto mb-4 text-2xl shadow-inner">
+                <i class="fa-solid fa-sparkles animate-spin" style="animation-duration: 6s;"></i>
+            </div>
+            <h2 class="font-title text-5xl text-pink-600 mb-3">Terima Kasih...</h2>
+            <p class="text-pink-900 leading-relaxed font-medium mb-6 text-xs md:text-sm">
+               ws dino iki awm sg bersinar mbet, matahari tak kongkon ngalih. Tetaplah menjadi pribadi yang
+                baik, ceria, dan selalu menyebarkan energi positif di sekitarmu! ✨
+            </p>
+
+            <div class="bg-pink-50 p-4 rounded-2xl border border-pink-200 mb-6 text-xs text-pink-700 italic">
+                "May your upcoming year be filled with endless laughter, sweet coffee, good music, and beautiful
+                memories." ☕🌷
+            </div>
+
+            <button onclick="nextSection('sec-opening')" class="btn-pink justify-center w-full">
+                <i class="fa-solid fa-rotate-left"></i>
+                <span>MUTER MNEHHH 🌸</span>
+            </button>
+        </div>
+    </div>
+
+    <script src="assets/js/script.js" defer></script>
+</body>
+
+</html>
